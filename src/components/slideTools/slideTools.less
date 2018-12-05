@@ -1,0 +1,84 @@
+@import '../../assets/css/base.less';
+.tools-wrap{
+  width: 260px;
+  float: left;
+
+  .tools-item-title{
+    font-size: 24px;
+    height: 36px;
+    line-height: 36px;
+    padding-left: 30px;
+    position: relative;
+    &:after{
+      content: ' ';
+      position: absolute;
+      left : 10px;
+      width: 0;
+      height: 0;
+      border: 5px solid transparent;
+      border-left: 6px solid #667082;
+      top: 50%;
+      transform: translateY(-50%);
+      -webkit-transform: translateY(-50%)
+    }
+  }
+
+  .tools-layout{
+    .fn-clear();
+    .item{
+      box-sizing: border-box;
+      width: 50%;
+      height: 120px;
+      float: left;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .item-cont{
+        width: 80%;
+        height: 90px;
+        background: #eee;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        .layout-item-ico{
+          display: inline-block;
+        }
+        p{
+          padding-top: 2px;
+        }
+      }
+    }
+  }
+}
+
+.ico_img(@bg_url, @background_size, @width, @height) {
+  background-image: url(@bg_url);
+  background-size: @background_size;
+  width: @width;
+  height: @height;
+  display: inline-block;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+}
+
+.layout-ico(@bg_position: 0px 0px){
+  .ico_img('../../assets/img/active/page-edit-layout.png', 90px auto, 90px, 62px);
+  background-position: @bg_position;
+}
+
+.component-ico(@bg_position: 0px 0px){
+  .ico_img('../../assets/img/active/page-editicon.png', 50px auto, 50px, 50px);
+  background-position: @bg_position;
+}
+
+.layout-item-ico1{
+  .layout-ico(0 0);
+}
+.layout-item-ico2{
+  .layout-ico(0 -62px);
+}
+
+.component-item-ico1{
+  .component-ico(0 0)
+}

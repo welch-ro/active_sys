@@ -1,0 +1,45 @@
+/* 隐藏 & 显示 配合js */
+.fn-hide{
+	display: none!important;
+}
+.fn-show{
+	display: block;
+}
+.fn-pr{
+	position: relative;
+}
+/* 浮动 */
+.fn-left{
+	float: left;
+}
+.fn-right{
+	float: right;
+}
+/* 清除浮动 */
+.fn-clear{
+	.fn-clear();
+}
+
+.text-center{
+    text-align: center;
+}
+
+
+/* 懒加载图片背景置灰 */
+.lazyload-base-bg{
+    width: 100%;
+    height: 100%;
+    background: #f8f8f8;
+}
+
+/* 清除浮动 */
+.fn-clear(){
+	zoom: 1;
+	&:after{
+		display: block;
+		visibility: hidden;
+		clear: both;
+		height: 0;
+		content: '.';
+	}
+}
