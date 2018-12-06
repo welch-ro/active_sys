@@ -1,4 +1,4 @@
-<style lang="less" src='./image.less'></style>
+<style scoped lang="less" src='./image.less'></style>
 <template>
     <div>
         <div>显示组件配置</div>

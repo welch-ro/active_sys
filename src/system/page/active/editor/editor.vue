@@ -6,27 +6,32 @@
                      :componentsList="componentsList">
         </slide-tools>
         <!-- 组件工具栏 ]] -->
-        <div class="editor-wrap">
-            <div class="editor-cont">
-                <!--[[ 编辑主要区域，拖拽布局和组件进入此区 -->
-                <div class="editor-page">
-                    <drag-gable style="min-height: 300px;" v-model="editorList" :options="{group:{name:'editor', put:['layout','component']}}" @add="endDrop">
-                        <div class="layout-item" v-for="(item, index) in editorList" :key="index">
-                            <layout :layoutItem="item"
-                                    :colNum="parseInt(item.layout, 10)"
-                                    @showConfig="showConfig"
-                                    :key="item.layoutId">
-                            </layout>
-                        </div>
-                    </drag-gable>
+        <div class="right-cont">
+            <div class="btn-wrap">
+                <a class="blue-btn middle-btn" href="javascript:;">保存编辑</a>
+            </div>
+            <div class="editor-wrap">
+                <div class="editor-cont">
+                    <!--[[ 编辑主要区域，拖拽布局和组件进入此区 -->
+                    <div class="editor-page">
+                        <drag-gable style="min-height: 300px;" v-model="editorList" :options="{group:{name:'editor', put:['layout','component']}}" @add="endDrop">
+                            <div class="layout-item" v-for="(item, index) in editorList" :key="index">
+                                <layout :layoutItem="item"
+                                        :colNum="parseInt(item.layout, 10)"
+                                        @showConfig="showConfig"
+                                        :key="item.layoutId">
+                                </layout>
+                            </div>
+                        </drag-gable>
+                    </div>
+                    <!-- 编辑主要区域，拖拽布局和组件进入此区 ]] -->
                 </div>
-                <!-- 编辑主要区域，拖拽布局和组件进入此区 ]] -->
+                <!-- [[ 点击组件，对应显示组件的配置 -->
+                <div class="conf-wrap">
+                    <show-config :configName="configName" :componentConfig="componentConfig"></show-config>
+                </div>
+                <!-- 点击组件，对应显示组件的配置 ]] -->
             </div>
-            <!-- [[ 点击组件，对应显示组件的配置 -->
-            <div class="conf-wrap">
-                <show-config :configName="configName" :componentConfig="componentConfig"></show-config>
-            </div>
-            <!-- 点击组件，对应显示组件的配置 ]] -->
         </div>
     </div>
 </template>
@@ -47,7 +52,7 @@ export default {
             // 组件名 componentName 字段
             configName: '',
 
-            // 组件对应的数据
+            // 组件对应的配置数据
             componentConfig: {},
 
             // 布局数据

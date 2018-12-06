@@ -1,9 +1,9 @@
-<style lang="less" src='./slideTools.less'></style>
+<style scoped lang="less" src='./slideTools.less'></style>
 <template>
     <div class="tools-wrap">
         <h3 class="tools-item-title">布局</h3>
         <ul class="tools-layout">
-            <drag-gable v-model="layoutList" :options="{group:{name:'layout', pull:'clone', put:false}, sort:false}" :clone="onClone">
+            <drag-gable v-model="layoutList" :options="{group:{name:'layout', pull:'clone', put:false}, sort:false}" :clone="onCloneLayout">
                 <li class="item" v-for="(item, index) in layoutList" :key="index">
                     <div class="item-cont">
                         <div>
@@ -17,7 +17,7 @@
 
         <h3 class="tools-item-title">组件</h3>
         <ul class="tools-layout">
-            <drag-gable v-model="componentsList" :options="{group:{name:'component', pull:'clone', put:false}, sort:false}" :clone="onClone">
+            <drag-gable v-model="componentsList" :options="{group:{name:'component', pull:'clone', put:false}, sort:false}" :clone="onCloneComponent">
                 <li class="item component-hover-layout-hidden" v-for="(item, index) in componentsList" :key="index">
                     <div class="item-cont">
                         <div>
@@ -54,9 +54,15 @@ export default {
     },
 
     methods: {
-        // 克隆布局，组件数据
-        onClone (original) {
+        // 克隆布局
+        onCloneLayout (original) {
             this.$set(original, 'layoutId', 'layoutId_' + new Date().getTime());
+            return JSON.parse(JSON.stringify(original));
+        },
+
+        // 组件数据
+        onCloneComponent (original) {
+            this.$set(original, 'cId', 'cId_' + new Date().getTime());
             return JSON.parse(JSON.stringify(original));
         }
     }

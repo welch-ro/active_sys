@@ -1,6 +1,6 @@
 <style lang="less" src='./showComponent.less'></style>
 <template>
-    <component :is="componentList[componentName]['component']" :config="config" @click.native="showConfig"  :key="new Date().getTime()"></component>
+    <component :is="componentList[componentName]['component']" :config="config" @click.native="showConfig"  :key="config.cId"></component>
 </template>
 <script>
 const vueImage = () => import('@/components/image/image');
