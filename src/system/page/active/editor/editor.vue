@@ -67,6 +67,10 @@ export default {
         slideTools, dragGable, layout, showConfig
     },
 
+    created () {
+        this.getEveData();
+    },
+
     methods: {
 
         // 直接拉组件进来布局区域，给组件数据添加一层一行一列的布局，因为布局是基础，有布局才有组件，这里方便用户，对于一行一列的不用再拖布局
@@ -92,6 +96,13 @@ export default {
             this.configName = configObj.configName;
             // 对应组件的配置
             this.componentConfig = configObj.config;
+        },
+
+        // 获取数据
+        getEveData () {
+            this.$http.get('/active', { params: { id: 100000 } }).then(function (ret) {
+                console.log(ret.data);
+            });
         }
     }
 };

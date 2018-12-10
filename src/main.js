@@ -3,8 +3,10 @@
 import Vue from 'vue';
 import router from './router';
 import layout from './layout';
+import axios from 'axios';
 
 Vue.config.productionTip = false;
+Vue.prototype.$http = axios;
 
 /* eslint-disable no-new */
 new Vue({
