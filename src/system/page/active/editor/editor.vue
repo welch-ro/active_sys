@@ -8,7 +8,7 @@
         <!-- 组件工具栏 ]] -->
         <div class="right-cont">
             <div class="btn-wrap">
-                <a class="blue-btn middle-btn" href="javascript:;">保存编辑</a>
+                <a class="blue-btn middle-btn" href="javascript:;" @click="saveEveData">保存编辑</a>
             </div>
             <div class="editor-wrap">
                 <div class="editor-cont">
@@ -59,7 +59,10 @@ export default {
             layoutList: test.layoutList,
 
             // 组件数据
-            componentsList: test.componentList
+            componentsList: test.componentList,
+
+            // activeId，从route获取
+            activeEventId: ''
         };
     },
 
@@ -68,6 +71,7 @@ export default {
     },
 
     created () {
+        this.activeEventId = this.$route.params.id;
         this.getEveData();
     },
 
@@ -100,8 +104,31 @@ export default {
 
         // 获取数据
         getEveData () {
-            this.$http.get('/active', { params: { id: 100000 } }).then(function (ret) {
-                console.log(ret.data);
+            this.$http.get('/active/get', { params: { id: this.activeEventId } }).then((ret) => {
+                let data = ret.data;
+                if (data.result === 0) {
+                    let resultRows = data.result_row;
+                    let list = resultRows.list;
+                    let editorListJson = list[0].editorList;
+                    if (editorListJson) {
+                        this.editorList = JSON.parse(editorListJson);
+                    }
+                }
+            });
+        },
+
+        // 保存数据
+        saveEveData () {
+            let editorListJson = JSON.stringify(this.editorList);
+            this.$http.post('/active/save', { params: { eveId: this.activeEventId, editorList: editorListJson } }).then(function (ret) {
+                let retData = ret.data;
+                let msg = retData.msg;
+
+                if (retData.result === 0) {
+                    alert('保存成功');
+                } else {
+                    alert(msg);
+                }
             });
         }
     }

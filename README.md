@@ -115,6 +115,8 @@ db.createUser({user:"roluo",pwd:"roluo",roles:[{role:"dbOwner",db:"active"}})
 db.auth("roluo","roluo")
 
 ###//mongo基本语法
+http://127.0.0.1:1234/app/demo/active/eveconfigs/view/1
+
 查看当前的数据库列表
 show dbs 
 
@@ -171,7 +173,16 @@ mongoimport -d db_demo -c user --file /user/sdfl/.sflll...
 
 //axios
 axios， this.axios.get('url', {param : { data }}).then(function(ret){console.log(ret.data)})
-后台，通过req.query来获取get的参数
+后台，通过req.query来获取get的参数, post的方法，后台通过req.body来获取参数
+
+//更新了vue接口代理
+'/api': {
+    target: "http://localhost:3000",
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api': ''
+    }
+  }
 
 
 

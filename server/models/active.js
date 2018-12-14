@@ -4,7 +4,8 @@ let Schema = mongoose.Schema;
 
 let activeSchema = new Schema({
     'eveId': String,
-    'editorList': String
+    'editorList': String,
+    'title': String
 });
 
 module.exports = mongoose.model('eveconfigs', activeSchema);
