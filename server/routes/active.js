@@ -6,6 +6,9 @@ let mongoose = require('mongoose');
 
 let Active = require('../models/active');
 
+let fs = require('fs');
+let path = require('path');
+
 //
 function toDouble (num) {
     return ('' + num).length < 2 ? ('0' + num) : num;
@@ -199,7 +202,7 @@ router.post('/add_active', (req, res, next) => {
             } else {
                 let wherestr = { 'eveId': postParams.activeId };
                 let updatestr = { 'title': postParams.title, 'startTime': postParams.startTime, 'endTime': postParams.endTime };
-                Active.update(wherestr, updatestr, (errUp, proUp) => {
+                Active.updateOne(wherestr, updatestr, (errUp, proUp) => {
                     if (errUp) {
                         res.json({
                             result: 6666,
@@ -219,6 +222,77 @@ router.post('/add_active', (req, res, next) => {
             }
         });
     }
+});
+
+// 生成页面html
+let cp = require('child_process');
+
+router.post('/add_view', (req, res, next) => {
+    let reqHTML = req.body.params.mainHTML;
+    let eveId = req.body.params.id;
+
+    let rootDir = path.resolve(__dirname, '../../');
+    let indexHTML = fs.readFileSync(rootDir + '/mod/index.html', 'utf-8');
+    let newHTML = indexHTML.replace('<mainHTML>', reqHTML);
+
+    fs.access(rootDir + '/view/' + eveId, fs.constants.F_OK | fs.constants.W_OK, (exists) => {
+        fs.mkdir(rootDir + '/view/' + eveId, function () {
+            console.log('文件已经生成');
+            fs.writeFile(rootDir + '/view/' + eveId + '/index.html', newHTML, function (err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log('Export Account Success!');
+                    // 通过chrome打开页面
+                    cp.exec('start chrome ' + rootDir + '/view/' + eveId + '/index.html');
+                }
+            });
+        });
+    });
+});
+
+// 上传图片
+router.post('/upload_img', (req, res, next) => {
+    let rootDir = path.resolve(__dirname, '../../');
+    let imgParams = req.body.params;
+    let imgData = imgParams.imgSrc;
+
+    let base64Data = imgData.replace(/^data:image\/(\w+);base64,/, '');
+    let dataBuffer = Buffer.from(base64Data, 'base64');
+
+    let now = new Date();
+    let Y = now.getFullYear();
+    let M = now.getMonth() + 1;
+    let d = now.getDate();
+    let H = now.getHours();
+    let min = now.getMinutes();
+    let sec = now.getSeconds();
+
+    let newActiveId = '' + Y + toDouble(M) + toDouble(d) + toDouble(H) + toDouble(min) + toDouble(sec) + parseInt(Math.random() * 10000, 10);
+
+    fs.writeFile(rootDir + '/upload/' + newActiveId + '.' + imgParams.imgType, dataBuffer, function (err) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.json({
+                result: 0,
+                msg: '',
+                result_row: {
+                    imgSrc: rootDir + '\\upload\\' + newActiveId + '.' + imgParams.imgType
+                }
+            });
+        }
+    });
+
+    /*
+    fs.rename(req.body.params.imgSrc, rootDir + '/upload/img1.jpg', function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('done!');
+        }
+    });
+    */
 });
 
 module.exports = router;

@@ -1,4 +1,4 @@
-<style scoped lang="less" src='./showConfig.less'></style>
+<style lang="less" src='./showConfig.less'></style>
 <template>
     <component :is="configName" :config="componentConfig" :isEdit="false"></component>
 </template>

@@ -2,7 +2,7 @@
 .page-layout{
   display: flex;
   .layout-module{
-    flex: 1 1 auto;
+    flex: 1 1 0;
     /*组件拖拽到布局上面的时候，隐藏图标显示*/
     .component-hover-layout-hidden{
       display: none;
@@ -14,6 +14,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80px;
+    min-height: 80px;
   }
 }

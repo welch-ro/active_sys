@@ -7,7 +7,7 @@
                     <show-component :componentName="list[i-1][0].componentName" :config="list[i-1][0].config" @showConfig="showConfig" :key="layoutItem.layoutId"></show-component>
                 </div>
                 <div class="component-empty-tips" v-else>
-                    请拖进来
+                    请拖组件进来
                 </div>
             </drag-gable>
         </div>
@@ -31,7 +31,7 @@ export default {
 
     props: {
         colNum: {
-            'type': [Number],
+            'type': Number,
             'default': 1
         },
         layoutItem: {
@@ -48,7 +48,7 @@ export default {
     methods: {
         // 将数据添加到对应的layout components里
         addData () {
-            if (this.list.length > 0) {
+            if (this.list && this.list.length > 0) {
                 this.list.map((item, index) => {
                     let everyItem = item[0];
                     this.layoutItem.components[index] = everyItem;
@@ -67,14 +67,16 @@ export default {
         },
 
         updateList (list) {
-            let colsNum = parseInt(list.layout, 10);
-            for (let i = 0; i < colsNum; i++) {
-                // 如果布局没有数据，那么插入一个空的数组来占位
-                let itemData = [];
-                if (list.components[i]) {
-                    itemData.push(list.components[i]);
+            if (list.layout) {
+                let colsNum = parseInt(list.layout, 10);
+                for (let i = 0; i < colsNum; i++) {
+                    // 如果布局没有数据，那么插入一个空的数组来占位
+                    let itemData = [];
+                    if (list.components[i]) {
+                        itemData.push(list.components[i]);
+                    }
+                    this.list[i] = itemData;
                 }
-                this.list[i] = itemData;
             }
         }
     },

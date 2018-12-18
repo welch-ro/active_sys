@@ -1,11 +1,13 @@
 <style scoped lang="less" src='./image.less'></style>
 <template>
     <div>
-        <div>显示组件内容</div>
-        {{config.imgSrc}}
+        <div class="img-box">
+            <img :src="imgSrc" class="imgauto" />
+        </div>
     </div>
 </template>
 <script>
+import defaultImg from '@/assets/img/active/def-img.svg';
 export default {
     props: {
         config: {
@@ -13,10 +15,15 @@ export default {
             'default': {}
         }
     },
-    methods: {
-        show () {
-            alert(0);
+
+    computed: {
+        imgSrc () {
+            return this.config.imgSrc === '' ? defaultImg : this.config.imgSrc;
         }
+    },
+
+    methods: {
+
     }
 };
 </script>

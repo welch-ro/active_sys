@@ -29,7 +29,7 @@ let test = {
             'classify': 'component',
             'order': '321',
             'config': {
-                'imgSrc': 'aa'
+                'imgSrc': ''
             }
         }
     ]

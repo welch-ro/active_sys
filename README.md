@@ -184,7 +184,29 @@ axios， this.axios.get('url', {param : { data }}).then(function(ret){console.lo
     }
   }
 
+// nodejs fs
+let fs = require('fs');
+// 判断是否存在文件
+fs.access(file, fs.constants.F_OK | fs.constants.W_OK, function(exit){})
 
+// 读取文件
+fs.readFileSync(rootDir + '/mod/index.html', 'utf-8');
+
+// 创建文件夹
+fs.mkdir(rootDir + '/view/' + eveId, function () {})
+
+// 写入文件
+fs.writeFile(rootDir + '/view/' + eveId + '/index.html', newHTML, function (err) {
+    if(err){
+        // 写入失败
+    } else {
+        // 写入成功
+    }
+})
+
+// 通过chrome浏览文件
+let cp = require('child_process')
+cp.exec('start chrome ' + rootDir + '/view/' + eveId + '/index.html');
 
 
 

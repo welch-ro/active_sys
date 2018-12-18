@@ -36,11 +36,14 @@
       .item-cont{
         width: 80%;
         height: 90px;
-        background: #eee;
         display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
+        &:hover{
+          background: #f0f0f0;
+          cursor: move;
+        }
         .layout-item-ico{
           display: inline-block;
         }
@@ -72,13 +75,16 @@
   background-position: @bg_position;
 }
 
-.layout-item-ico1{
+.layout-item-ico0{
   .layout-ico(0 0);
 }
-.layout-item-ico2{
+.layout-item-ico1{
   .layout-ico(0 -62px);
 }
+.layout-item-ico2{
+  .layout-ico(0 -123px);
+}
 
-.component-item-ico1{
+.component-item-ico0{
   .component-ico(0 0)
 }
