@@ -15,7 +15,7 @@
                 <div class="editor-cont">
                     <!--[[ 编辑主要区域，拖拽布局和组件进入此区 -->
                     <div class="editor-page" ref="main_page">
-                        <drag-gable style="min-height: 300px;" v-model="editorList" :options="{group:{name:'editor', put:['layout','component']}}" @add="endDrop">
+                        <drag-gable class="drag-editor" v-model="editorList" :options="{group:{name:'editor', put:['layout','component']}}" @add="endDrop">
                             <div class="layout-item" v-for="(item, index) in editorList" :key="index">
                                 <!-- item.layout > 0 这里加了个判断，用于防止直接拖组件进来的时，布局还没加的情况下就渲染布局组件 -->
                                 <layout v-if="item.layout > 0" :layoutItem="item"

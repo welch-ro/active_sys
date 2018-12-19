@@ -66,7 +66,7 @@ export default {
                     let data = ret.data;
                     if (data.result === 0) {
                         // _this.config.imgSrc = data.result_row.imgSrc;
-                        _this.imgSrc = this.result;
+                        _this.imgSrc = data.result_row.imgSrc;
                         thisInput.value = '';
                         _this.$emit('uploadSuccess', _this.imgSrc);
                     }

@@ -1,6 +1,6 @@
 <style lang="less" src='./showComponent.less'></style>
 <template>
-    <component :is="componentList[componentName]['component']" :config="config" @click.native="showConfig"  :key="config.cId"></component>
+    <component :class="{'is-select': componentConfig.cId === checkSelectComId}" :is="componentList[componentName]['component']" :config="componentConfig.config" @click.native="showConfig(componentConfig.cId)"  :key="componentConfig.cId"></component>
 </template>
 <script>
 const vueImage = () => import('@/components/image/image');
@@ -22,11 +22,17 @@ export default {
             type: String
         },
         // 组件对应的配置
-        config: {
+        componentConfig: {
             'type': Object,
             'default': function () {
                 return {};
             }
+        }
+    },
+
+    computed: {
+        checkSelectComId () {
+            return this.$store.state.selectComId;
         }
     },
 
@@ -36,8 +42,11 @@ export default {
 
     methods: {
         // 点击显示对应的配置文件,把数据传回父组件，再对应发给配置文件
-        showConfig () {
-            this.$emit('showConfig', { configName: this.componentList[this.componentName]['configName'], config: this.config });
+        showConfig (cid) {
+            // this.isSelection = cid;
+            // 保存当前选中的组件cid，用于确定选中状态，这里通过vuex去管理
+            this.$store.commit('changeSelectComId', cid);
+            this.$emit('showConfig', { configName: this.componentList[this.componentName]['configName'], config: this.componentConfig.config });
         }
     }
 };

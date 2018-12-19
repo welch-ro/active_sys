@@ -1,3 +1,4 @@
+@import '../../../../assets/css/base.less';
 /* 总体布局，中间自适应，两边固定 */
 .right-cont{
   margin-left: 260px;
@@ -28,6 +29,12 @@
   height: 736px;
   border:1px solid #ccc;
   margin: 0 auto;
+  overflow: auto;
+  .special-scroll();
+  .drag-editor{
+    min-height: 700px;
+    padding-bottom: 32px;
+  }
   .layout-item{
     margin-bottom: 4px;
   }

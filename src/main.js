@@ -3,6 +3,7 @@
 import Vue from 'vue';
 import router from './router';
 import layout from './layout';
+import store from '@/store';
 import axios from 'axios';
 
 Vue.config.productionTip = false;
@@ -12,6 +13,7 @@ Vue.prototype.$http = axios;
 new Vue({
     el: '#app',
     router,
+    store: store,
     components: { layout },
     template: '<layout/>'
 });

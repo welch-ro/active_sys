@@ -6,7 +6,7 @@
         <input v-model="config.imgSrc">
         <h3 class="config-t">点击上传图片</h3>
         <div class="upload-img">
-            <upload-img :width="'100%'" :height="'80px'" :imgUrl="config.imgSrc" @uploadSuccess="uploadSuccess"></upload-img>
+            <upload-img :width="'100%'" :height="'80px'" :imgUrl="config.imgSrc" @uploadSuccess="uploadSuccess" :imgMaxSize="{jpeg: 200, png: 200, gif: 500}"></upload-img>
         </div>
     </div>
 </template>

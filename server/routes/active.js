@@ -270,7 +270,7 @@ router.post('/upload_img', (req, res, next) => {
 
     let newActiveId = '' + Y + toDouble(M) + toDouble(d) + toDouble(H) + toDouble(min) + toDouble(sec) + parseInt(Math.random() * 10000, 10);
 
-    fs.writeFile(rootDir + '/upload/' + newActiveId + '.' + imgParams.imgType, dataBuffer, function (err) {
+    fs.writeFile(rootDir + '/server/public/images/' + newActiveId + '.' + imgParams.imgType, dataBuffer, function (err) {
         if (err) {
             res.send(err);
         } else {
@@ -278,7 +278,7 @@ router.post('/upload_img', (req, res, next) => {
                 result: 0,
                 msg: '',
                 result_row: {
-                    imgSrc: rootDir + '\\upload\\' + newActiveId + '.' + imgParams.imgType
+                    imgSrc: 'http://localhost:3000/images/' + newActiveId + '.' + imgParams.imgType
                 }
             });
         }

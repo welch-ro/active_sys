@@ -4,7 +4,7 @@
         <div class="layout-module" v-for="i in colNum" :key="i">
             <drag-gable v-model="list[i-1]" :options="{group:{name:'showLayout', put:controlLength(list[i-1]), pull:false}}" @add="addData">
                 <div class="component-show" v-if="list[i-1].length > 0">
-                    <show-component :componentName="list[i-1][0].componentName" :config="list[i-1][0].config" @showConfig="showConfig" :key="layoutItem.layoutId"></show-component>
+                    <show-component :componentName="list[i-1][0].componentName" :componentConfig="list[i-1][0]" @showConfig="showConfig" :key="layoutItem.layoutId"></show-component>
                 </div>
                 <div class="component-empty-tips" v-else>
                     请拖组件进来
