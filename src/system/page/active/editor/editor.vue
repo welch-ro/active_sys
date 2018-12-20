@@ -7,6 +7,7 @@
         </slide-tools>
         <!-- 组件工具栏 ]] -->
         <div class="right-cont">
+            <img src="/static/page-editicon.png">
             <div class="btn-wrap">
                 <a class="blue-btn middle-btn" href="javascript:;" @click="saveEveData">保存编辑</a>
                 <a class="blue-btn middle-btn" href="javascript:;" @click="checkView">预览</a>
@@ -23,6 +24,7 @@
                                         @showConfig="showConfig"
                                         :key="item.layoutId">
                                 </layout>
+                                <div class="del-layout" @click="delLayout(item)" title="删除布局">X</div>
                             </div>
                         </drag-gable>
                     </div>
@@ -102,6 +104,13 @@ export default {
             this.configName = configObj.configName;
             // 对应组件的配置
             this.componentConfig = configObj.config;
+        },
+
+        // 删除布局
+        delLayout (layoutItem) {
+            let layoutIdList = this.editorList.map(e => e.layoutId);
+            let delLayoutIndex = layoutIdList.indexOf(layoutItem.layoutId);
+            this.editorList.splice(delLayoutIndex, 1);
         },
 
         // 获取数据

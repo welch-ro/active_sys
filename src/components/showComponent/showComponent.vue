@@ -1,6 +1,9 @@
 <style lang="less" src='./showComponent.less'></style>
 <template>
-    <component :class="{'is-select': componentConfig.cId === checkSelectComId}" :is="componentList[componentName]['component']" :config="componentConfig.config" @click.native="showConfig(componentConfig.cId)"  :key="componentConfig.cId"></component>
+    <div class="component-box">
+        <component :class="{'is-select': componentConfig.cId === checkSelectComId}" :is="componentList[componentName]['component']" :config="componentConfig.config" @click.native="showConfig(componentConfig.cId)"  :key="componentConfig.cId"></component>
+        <div class="component-del" @click="delComponent(componentConfig.cId)">x</div>
+    </div>
 </template>
 <script>
 const vueImage = () => import('@/components/image/image');
@@ -47,6 +50,11 @@ export default {
             // 保存当前选中的组件cid，用于确定选中状态，这里通过vuex去管理
             this.$store.commit('changeSelectComId', cid);
             this.$emit('showConfig', { configName: this.componentList[this.componentName]['configName'], config: this.componentConfig.config });
+        },
+
+        // 删除组件
+        delComponent (cid) {
+            this.$emit('delComponent', cid);
         }
     }
 };

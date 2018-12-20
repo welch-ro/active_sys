@@ -8,6 +8,10 @@
   align-items: flex-start;
   .editor-cont{
     flex: 1 1 auto;
+    margin-right: 30px;
+    height: 750px;
+    overflow: auto;
+    .special-scroll();
   }
   .conf-wrap{
     width: 300px;
@@ -26,16 +30,35 @@
 }
 .editor-page{
   width: 414px;
-  height: 736px;
   border:1px solid #ccc;
   margin: 0 auto;
-  overflow: auto;
-  .special-scroll();
   .drag-editor{
     min-height: 700px;
     padding-bottom: 32px;
   }
   .layout-item{
     margin-bottom: 4px;
+    position: relative;
+    .del-layout{
+      width: 18px;
+      height: 24px;
+      color: #fff;
+      font-size: 14px;
+      position: absolute;
+      right: 0px;
+      bottom: 0px;
+      background: rgba(0,0,0,0.2);
+      text-align: right;
+      padding-right: 8px;
+      line-height: 24px;
+      border-radius: 0 50% 50% 0;
+      transform: translate3d(100%, 0, 0);
+      .transition-fn();
+      cursor: pointer;
+      &:hover{
+        background: rgba(0,0,0,0.6);
+        box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.6);
+      }
+    }
   }
 }

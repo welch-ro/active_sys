@@ -1,5 +1,34 @@
 @import '../../assets/css/base.less';
 
-.is-select{
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+.component-box{
+  position: relative;
+  .is-select{
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+  }
+  .component-del{
+    width: 18px;
+    height: 18px;
+    color: #fff;
+    text-align: center;
+    line-height: 18px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 3;
+    background: rgba(0,0,0,0.1);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    .transition-fn(all, 0.5s);
+    display: none;
+    &:hover{
+      box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.6);
+      background: rgba(0,0,0,0.5);;
+    }
+  }
+  &:hover{
+    .component-del{
+      display: block;
+    }
+  }
 }

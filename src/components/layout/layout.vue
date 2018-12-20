@@ -4,7 +4,7 @@
         <div class="layout-module" v-for="i in colNum" :key="i">
             <drag-gable v-model="list[i-1]" :options="{group:{name:'showLayout', put:controlLength(list[i-1]), pull:false}}" @add="addData">
                 <div class="component-show" v-if="list[i-1].length > 0">
-                    <show-component :componentName="list[i-1][0].componentName" :componentConfig="list[i-1][0]" @showConfig="showConfig" :key="layoutItem.layoutId"></show-component>
+                    <show-component :componentName="list[i-1][0].componentName" :componentConfig="list[i-1][0]" @showConfig="showConfig" :key="layoutItem.layoutId" @delComponent="delComponent"></show-component>
                 </div>
                 <div class="component-empty-tips" v-else>
                     请拖组件进来
@@ -51,7 +51,7 @@ export default {
             if (this.list && this.list.length > 0) {
                 this.list.map((item, index) => {
                     let everyItem = item[0];
-                    this.layoutItem.components[index] = everyItem;
+                    this.$set(this.layoutItem.components, index, everyItem);
                     return false;
                 });
             }
@@ -75,9 +75,27 @@ export default {
                     if (list.components[i]) {
                         itemData.push(list.components[i]);
                     }
-                    this.list[i] = itemData;
+                    // this.list[i] = itemData; 这样用的话，会失去双向数据绑定的效果，当删除的时候会不起作用，所以用$set来实现双向绑定
+                    this.$set(this.list, i, itemData);
                 }
             }
+        },
+
+        // 删除组件
+        delComponent (cid) {
+            // 获取布局下的所有组件id
+            let components = this.layoutItem.components;
+
+            let layoutComponentId = components.map(e => {
+                if (e) {
+                    return e.cId ? e.cId : '';
+                }
+                return '';
+            });
+
+            let delCidIndex = layoutComponentId.indexOf(cid);
+            // 删除数据并使用null占位，这样就不会出现删除第一个组件后，第二个，第三个组件会依次成为第一个，第二个了
+            this.layoutItem.components.splice(delCidIndex, 1, null);
         }
     },
 
