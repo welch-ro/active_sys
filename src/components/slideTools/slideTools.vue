@@ -21,7 +21,7 @@
                 <li class="item component-hover-layout-hidden" v-for="(item, index) in componentsList" :key="index">
                     <div class="item-cont">
                         <div>
-                            <i :class="'component-item-ico' + index"></i>
+                            <i :class="'component-item-ico' + item.id"></i>
                             <p>{{item.componentName}}</p>
                         </div>
                     </div>

@@ -4,6 +4,7 @@
 </template>
 <script>
 const vueImageConfig = () => import('@/components/image/imageConfig');
+const vueTextConfig = () => import('@/components/text/textConfig');
 // import image from '@/components/image/image';
 
 export default {
@@ -24,7 +25,7 @@ export default {
     },
 
     components: {
-        vueImageConfig
+        vueImageConfig, vueTextConfig
     },
 
     methods: {}

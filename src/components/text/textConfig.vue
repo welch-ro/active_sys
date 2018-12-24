@@ -1,29 +1,38 @@
 <style scoped lang="less" src='./text.less'></style>
 <template>
-    <div>
-        <div>显示组件配置</div>
-        {{config.imgSrc}}
-        <input v-model="config.imgSrc">
-    </div>
+    <quill-editor v-model="config.text"
+                  ref="myQuillEditor"
+                  :key="config.cId"
+                  :options="editorOption">
+    </quill-editor>
 </template>
 <script>
-import uploadImg from '../uploadImg/uploadImg';
+import { quillEditor } from 'vue-quill-editor';
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
 
 export default {
+    data () {
+        return {
+            editorOption: {}
+        };
+    },
+
     props: {
         config: {
             'type': Object
         }
     },
 
-    components: {
-        uploadImg
+    computed: {
+        editor () {
+            return this.$refs.myQuillEditor.quill;
+        }
     },
 
-    methods: {
-        uploadSuccess (imgSrc) {
-            this.config.imgSrc = imgSrc;
-        }
+    components: {
+        quillEditor
     }
 };
 </script>

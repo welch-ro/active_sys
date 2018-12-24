@@ -7,7 +7,6 @@
         </slide-tools>
         <!-- 组件工具栏 ]] -->
         <div class="right-cont">
-            <img src="/static/page-editicon.png">
             <div class="btn-wrap">
                 <a class="blue-btn middle-btn" href="javascript:;" @click="saveEveData">保存编辑</a>
                 <a class="blue-btn middle-btn" href="javascript:;" @click="checkView">预览</a>
@@ -23,8 +22,10 @@
                                         :colNum="parseInt(item.layout, 10)"
                                         @showConfig="showConfig"
                                         :key="item.layoutId">
+                                    <template slot="del">
+                                        <div class="del-layout" @click="delLayout(item)" title="删除布局">X</div>
+                                    </template>
                                 </layout>
-                                <div class="del-layout" @click="delLayout(item)" title="删除布局">X</div>
                             </div>
                         </drag-gable>
                     </div>
@@ -116,6 +117,7 @@ export default {
         // 获取数据
         getEveData () {
             this.$http.get('/active/get', { params: { id: this.activeEventId } }).then((ret) => {
+                console.log(ret.headers);
                 let data = ret.data;
                 if (data.result === 0) {
                     let resultRows = data.result_row;

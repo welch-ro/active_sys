@@ -5,21 +5,27 @@
 let test = {
     layoutList: [
         {
-            'name': '123',
-            'order': '321',
+            'name': '一行一列',
+            'classify': 'layout',
+            'isShow': '1',
+            'type': 'oneLayout',
             'layout': '1',
             'components': []
         },
         {
-            'name': '12311',
-            'order': '32111',
+            'name': '一行两列',
             'layout': '2',
+            'classify': 'layout',
+            'isShow': '1',
+            'type': 'twoLayout',
             'components': []
         },
         {
-            'name': '12311',
-            'order': '32111',
+            'name': '一行三列',
             'layout': '3',
+            'classify': 'layout',
+            'isShow': '1',
+            'type': 'threeLayout',
             'components': []
         }
     ],
@@ -27,9 +33,17 @@ let test = {
         {
             'componentName': 'image',
             'classify': 'component',
-            'order': '321',
+            'id': 0,
             'config': {
                 'imgSrc': ''
+            }
+        },
+        {
+            'componentName': 'text',
+            'classify': 'component',
+            'id': 1,
+            'config': {
+                'text': ''
             }
         }
     ]

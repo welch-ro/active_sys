@@ -11,6 +11,7 @@
                 </div>
             </drag-gable>
         </div>
+        <slot name="del"></slot>
     </div>
 </template>
 <script>

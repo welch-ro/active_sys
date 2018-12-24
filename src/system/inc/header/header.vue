@@ -2,7 +2,7 @@
 
 <template>
     <div class="header">
-        活动发布系统
+        H5网页生成系统
     </div>
 </template>
 

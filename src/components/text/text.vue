@@ -1,29 +1,22 @@
 <style scoped lang="less" src='./text.less'></style>
 <template>
     <div>
-        <div class="img-box">
-            <img :src="imgSrc" class="imgauto" />
+
+        <div class="ql-editor" v-if="config.text" v-html="config.text"></div>
+        <div class="holder" v-else>
+            点击组件编辑
         </div>
     </div>
 </template>
 <script>
-import defaultImg from '@/assets/img/active/def-img.svg';
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
 export default {
     props: {
         config: {
-            'type': Object,
-            'default': {}
+            'type': Object
         }
-    },
-
-    computed: {
-        imgSrc () {
-            return this.config.imgSrc === '' ? defaultImg : this.config.imgSrc;
-        }
-    },
-
-    methods: {
-
     }
 };
 </script>

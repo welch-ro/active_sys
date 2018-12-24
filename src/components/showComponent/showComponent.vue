@@ -6,7 +6,12 @@
     </div>
 </template>
 <script>
-const vueImage = () => import('@/components/image/image');
+const vueImage = () => ({
+    component: import('@/components/image/image')
+});
+const vueText = () => ({
+    component: import('@/components/text/text')
+});
 // import image from '@/components/image/image';
 
 export default {
@@ -14,7 +19,8 @@ export default {
         return {
             // 组件对应的名称，这里重新定义了一下，以解决名称跟关键词有冲突，个人是这样认为的,因为我用image做为名称的时候，会不显示，名称改了就好了
             componentList: {
-                'image': { component: 'vueImage', configName: 'vueImageConfig' }
+                'image': { component: 'vueImage', configName: 'vueImageConfig' },
+                'text': { component: 'vueText', configName: 'vueTextConfig' }
             }
         };
     },
@@ -40,7 +46,7 @@ export default {
     },
 
     components: {
-        vueImage
+        vueImage, vueText
     },
 
     methods: {
