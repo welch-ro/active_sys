@@ -1,10 +1,13 @@
 <style scoped lang="less" src='./text.less'></style>
 <template>
-    <quill-editor v-model="config.text"
-                  ref="myQuillEditor"
-                  :key="config.cId"
-                  :options="editorOption">
-    </quill-editor>
+    <div>
+        <h3 class="config-t">编辑文案</h3>
+        <quill-editor v-model="config.text"
+                      ref="myQuillEditor"
+                      :key="config.cId"
+                      :options="editorOption">
+        </quill-editor>
+    </div>
 </template>
 <script>
 import { quillEditor } from 'vue-quill-editor';

@@ -1,7 +1,7 @@
 <style lang="less" src='./layout.less'></style>
 <template>
     <div class="page-layout">
-        <div class="layout-module" v-for="i in colNum" :key="i">
+        <div class="layout-module" v-for="i in colNum" :key="layoutItem.layoutId + '_' + i">
             <drag-gable v-model="list[i-1]" :options="{group:{name:'showLayout', put:controlLength(list[i-1]), pull:false}}" @add="addData">
                 <div class="component-show" v-if="list[i-1].length > 0">
                     <show-component :componentName="list[i-1][0].componentName" :componentConfig="list[i-1][0]" @showConfig="showConfig" :key="layoutItem.layoutId" @delComponent="delComponent"></show-component>
