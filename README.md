@@ -26,7 +26,7 @@ npm test
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-### 本系统基于vue2.0开发
+### 本系统基于vue2.5开发
 
 ![](https://github.com/welch-ro/active_sys/blob/master/view/GIF22.gif)
 

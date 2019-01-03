@@ -32,14 +32,23 @@ let test = {
     componentList: [
         {
             'componentName': 'image',
+            'type': 'image',
+            'componentCNName': '图片',
+            'categoryId': '1',
+            'categoryDesc': '图文类',
             'classify': 'component',
             'id': 0,
             'config': {
-                'imgSrc': ''
+                'imgSrc': '',
+                'link': ''
             }
         },
         {
             'componentName': 'text',
+            'type': 'text',
+            'componentCNName': '文本',
+            'categoryId': '1',
+            'categoryDesc': '图文类',
             'classify': 'component',
             'id': 1,
             'config': {

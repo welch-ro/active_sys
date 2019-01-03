@@ -1,7 +1,75 @@
 @import '../../assets/css/base.less';
+
+@hover-color: #f7f7f7;
+@content-open-height : 500px;
+
+
 .tools-wrap{
   width: 260px;
   float: left;
+
+  dt{
+    margin-top: 16px;
+    padding: 0 20px 0 30px;
+    position: relative;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    &:after{
+      content: ' ';
+      position: absolute;
+      left : 10px;
+      width: 0;
+      height: 0;
+      border: 5px solid transparent;
+      border-left: 6px solid #667082;
+      top: 50%;
+      transform: translateY(-50%);
+      -webkit-transform: translateY(-50%)
+    }
+    &:hover{
+      cursor: pointer;
+    }
+    &.is-open{
+      &:after{
+        content: ' ';
+        position: absolute;
+        left : 10px;
+        width: 0;
+        height: 0;
+        border: 5px solid transparent;
+        border-top: 6px solid #667082;
+        top: 50%;
+        transform: translateY(-30%);
+        -webkit-transform: translateY(-30%)
+      }
+    }
+    &.no-hover{
+      background: none;
+      cursor : auto;
+      padding-left: 12px;
+      &:after{
+        display: none;
+      }
+    }
+  }
+  dd {
+    //margin-bottom: 10px;
+  }
+  .tool-bigblock{
+    padding: 10px 12px;
+    background-color: #fff;
+  }
+  .tools-layout{
+    padding: 6px 12px 0;
+    overflow: hidden;
+    max-height: 0;
+    -webkit-transition : max-height .4s;
+    transition : max-height .4s;
+    &.content-open{
+      max-height: @content-open-height;
+    }
+  }
 
   .tools-item-title{
     font-size: 24px;
@@ -91,3 +159,6 @@
 .component-item-ico1{
   .component-ico(0 -50px)
 }
+
+
+

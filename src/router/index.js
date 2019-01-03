@@ -9,7 +9,7 @@ Vue.use(Router);
 export default new Router({
     mode: 'history',
     routes: [
-        { path: '/editor/:id', name: 'editor', component: editor },
+        { path: '/editor/:id?', name: 'editor', component: editor },
         { path: '/list', name: 'list', component: list },
         { path: '/detail/:id?', name: 'detail', component: detail }
     ]
