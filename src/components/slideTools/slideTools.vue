@@ -115,7 +115,7 @@ export default {
         },
 
         /*
-         * 将组件进行分类 拥有相同category_name的对象会归成一类
+         * 将组件进行分类 拥有相同categoryName的对象会归成一类
          * param obj [Array]               所要分类的数组对象
          * param category_name ['string']   以哪个字段进行分页
          * return Array

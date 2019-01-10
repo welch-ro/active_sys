@@ -47,6 +47,7 @@ import dragGable from 'vuedraggable';
 import layout from '@/components/layout/layout';
 import showConfig from '@/components/showConfig/showConfig';
 import test from '@/assets/config/slideTools/test';
+import axios from '@/assets/js/server/api';
 
 export default {
     data () {
@@ -116,6 +117,18 @@ export default {
 
         // 获取数据
         getEveData () {
+            axios.getActiveInfo({ id: this.activeEventId }, true).then((ret) => {
+                let data = ret.data;
+                if (data.result === 0) {
+                    let resultRows = data.result_row;
+                    let list = resultRows.list;
+                    let editorListJson = list[0].editorList;
+                    if (editorListJson) {
+                        this.editorList = JSON.parse(editorListJson);
+                    }
+                }
+            });
+            /*
             this.$http.get('/active/get', { params: { id: this.activeEventId } }).then((ret) => {
                 console.log(ret.headers);
                 let data = ret.data;
@@ -127,12 +140,28 @@ export default {
                         this.editorList = JSON.parse(editorListJson);
                     }
                 }
+            }).catch((err) => {
+                console.log(`error ${err}`);
             });
+            */
         },
 
         // 保存数据
         saveEveData () {
             let editorListJson = JSON.stringify(this.editorList);
+            axios.saveActiveInfo({ eveId: this.activeEventId, editorList: editorListJson }).then(function (ret) {
+                let retData = ret.data;
+                let msg = retData.msg;
+
+                if (retData.result === 0) {
+                    alert('保存成功');
+                } else {
+                    alert(msg);
+                }
+            }).catch(err => {
+                console.log('超时', err);
+            });
+            /*
             this.$http.post('/active/save', { params: { eveId: this.activeEventId, editorList: editorListJson } }).then(function (ret) {
                 let retData = ret.data;
                 let msg = retData.msg;
@@ -143,9 +172,10 @@ export default {
                     alert(msg);
                 }
             });
+            */
         },
 
-        //
+        // 此方法不适用，预览后面会重新构建一个项目，通过传active_id来获取编辑数据，再去渲染页面
         checkView () {
             let mainHTML = this.$refs.main_page.innerHTML;
             this.$http.post('/active/add_view', { params: { id: this.activeEventId, mainHTML: mainHTML } }).then((ret) => {

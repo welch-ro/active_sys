@@ -5,6 +5,8 @@
     </div>
 </template>
 <script>
+import axios from '@/assets/js/server/api';
+import qs from 'qs';
 export default {
     data () {
         return {
@@ -62,7 +64,10 @@ export default {
             let reader = new FileReader();
             reader.readAsDataURL(imgObj);
             reader.onload = function () {
-                _this.$http.post('/active/upload_img', { params: { imgSrc: this.result, imgType: type } }).then((ret) => {
+                // x-www-form-urlencoded方式用这种，通过qs处理成键值对去传 a=1&b=2这样
+                let dataString = qs.stringify({ imgSrc: this.result, imgType: type });
+
+                axios.upLoad(dataString).then((ret) => {
                     let data = ret.data;
                     if (data.result === 0) {
                         // _this.config.imgSrc = data.result_row.imgSrc;
@@ -71,6 +76,17 @@ export default {
                         _this.$emit('uploadSuccess', _this.imgSrc);
                     }
                 });
+                /*
+                _this.$http.post('/active/upload_img',  { imgSrc: this.result, imgType: type }).then((ret) => {
+                    let data = ret.data;
+                    if (data.result === 0) {
+                        // _this.config.imgSrc = data.result_row.imgSrc;
+                        _this.imgSrc = data.result_row.imgSrc;
+                        thisInput.value = '';
+                        _this.$emit('uploadSuccess', _this.imgSrc);
+                    }
+                });
+                */
             };
         }
     }

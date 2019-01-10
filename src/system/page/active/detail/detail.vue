@@ -25,7 +25,7 @@
     </div>
 </template>
 <script>
-
+import axios from '@/assets/js/server/api';
 export default {
     data () {
         return {
@@ -45,6 +45,17 @@ export default {
 
     methods: {
         addActive () {
+            axios.addActive({ params: this.activeData }).then((ret) => {
+                let data = ret.data;
+                let resultRow = data.result_rows;
+                let status = resultRow.status;
+                let eveId = resultRow.eveId;
+                this.activeData.activeId = eveId;
+                if (status === 10) {
+                    this.$router.push({ 'path': '/editor/' + this.activeData.activeId });
+                }
+            });
+            /*
             this.$http.post('/active/add_active', { params: this.activeData }).then((ret) => {
                 let data = ret.data;
                 let resultRow = data.result_rows;
@@ -55,9 +66,20 @@ export default {
                     this.$router.push({ 'path': '/editor/' + this.activeData.activeId });
                 }
             });
+            */
         },
 
         getInfo () {
+            axios.getActiveInfo({ id: this.activeEventId }).then((ret) => {
+                let data = ret.data;
+                if (data.result === 0) {
+                    let resultRows = data.result_row;
+                    let list = resultRows.list;
+                    let title = list[0].title;
+                    this.activeData.title = title;
+                }
+            });
+            /*
             this.$http.get('/active/get', { params: { id: this.activeData.activeId } }).then((ret) => {
                 let data = ret.data;
                 if (data.result === 0) {
@@ -67,6 +89,7 @@ export default {
                     this.activeData.title = title;
                 }
             });
+            */
         }
     }
 };

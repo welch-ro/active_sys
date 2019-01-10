@@ -29,7 +29,7 @@ mongoose.connection.on('disconnected', () => {
     console.log('------数据库连接断开了！------');
 });
 
-// 获取得有列表
+// 获取所有列表
 router.get('/list', (req, res, next) => {
     Active.find((err, doc) => {
         if (err) {
@@ -50,9 +50,9 @@ router.get('/list', (req, res, next) => {
     });
 });
 
-router.get('/get', (req, res, next) => {
-    let activeEvent = req.query.id.toString();
-    Active.find({ eveId: activeEvent }, (err, doc) => {
+// 获取所有列表
+router.get('/list2', (req, res, next) => {
+    Active.find((err, doc) => {
         if (err) {
             res.json({
                 result: 9999,
@@ -62,13 +62,46 @@ router.get('/get', (req, res, next) => {
             res.json({
                 result: 0,
                 msg: '',
-                result_row: {
-                    count: doc.length,
-                    list: doc
-                }
+                result_row: doc
             });
         }
     });
+});
+
+router.get('/get', (req, res, next) => {
+    let activeEvent = req.query.id;
+    if (activeEvent) {
+        let eveId = activeEvent.toString();
+        Active.find({ eveId: eveId }, (err, doc) => {
+            if (err) {
+                res.json({
+                    result: 9999,
+                    msg: err.message
+                });
+            } else {
+                if (doc.length > 0) {
+                    res.json({
+                        result: 0,
+                        msg: '',
+                        result_row: {
+                            count: doc.length,
+                            list: doc
+                        }
+                    });
+                } else {
+                    res.json({
+                        result: 1,
+                        msg: '没有数据'
+                    });
+                }
+            }
+        });
+    } else {
+        res.json({
+            result: 1,
+            msg: '没有数据'
+        });
+    }
 });
 
 router.post('/update/', (req, res, next) => {
@@ -97,8 +130,8 @@ router.post('/update/', (req, res, next) => {
 });
 
 router.post('/save/', (req, res, next) => {
-    let activeDate = req.body.params;
-    console.log(activeDate);
+    let activeDate = req.body;
+    console.log(req.body);
     Active.findOne({ 'eveId': activeDate.eveId }, (err, doc) => {
         console.log('doc.length', doc.eveId);
         if (err) {
@@ -254,8 +287,21 @@ router.post('/add_view', (req, res, next) => {
 // 上传图片
 router.post('/upload_img', (req, res, next) => {
     let rootDir = path.resolve(__dirname, '../../');
-    let imgParams = req.body.params;
+    console.log(req.body);
+    let imgParams = req.body;
     let imgData = imgParams.imgSrc;
+
+    /*
+    * 如果 Content-Type 为 application/x-www-form-urlencoded:charset=utf-8 这里前端没有用到qs的情况下 如果有用到qs，那么跟application/json一样处理，直接req.body就可拿到参数
+    *
+    *  let imgParams = '';
+     for (let i in req.body) {
+     imgParams = JSON.parse(i);
+     }
+
+     let imgData = imgParams.imgSrc;
+    *
+    * */
 
     let base64Data = imgData.replace(/^data:image\/(\w+);base64,/, '');
     let dataBuffer = Buffer.from(base64Data, 'base64');
