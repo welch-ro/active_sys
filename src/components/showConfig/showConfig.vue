@@ -3,9 +3,7 @@
     <component :is="configName" :config="componentConfig" :isEdit="false"></component>
 </template>
 <script>
-const vueImageConfig = () => import('@/components/image/imageConfig');
-const vueTextConfig = () => import('@/components/text/textConfig');
-// import image from '@/components/image/image';
+import { componentsConfigList } from '@/components/slideToolsComponents/getComponents';
 
 export default {
     data () {
@@ -24,9 +22,7 @@ export default {
         }
     },
 
-    components: {
-        vueImageConfig, vueTextConfig
-    },
+    components: componentsConfigList,
 
     methods: {}
 };

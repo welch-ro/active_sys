@@ -6,7 +6,7 @@
         <dd>
             <ul class="tools-layout" :class="{'content-open': openIndexList.includes('bj')}">
                 <drag-gable v-model="layoutList" :options="{group:{name:'layout', pull:'clone', put:false}, sort:false}" :clone="onCloneLayout">
-                    <li class="item" v-for="(item, index) in layoutList" :key="index">
+                    <li class="item" v-for="(item, index) in layoutList" :key="index" v-if="item.isShow == 1">
                         <div class="item-cont">
                             <div>
                                 <i :class="'layout-item-ico' + index"></i>
@@ -81,7 +81,6 @@ export default {
             openIndexList: ['bj', 1]
         };
     },
-
     props: {
         layoutList: {
             'type': Array,
@@ -95,6 +94,12 @@ export default {
 
     created () {
         this.newComponentList = this.categoryClass(this.componentsList, 'categoryDesc');
+    },
+
+    beforeMount () {
+    },
+
+    mounted () {
     },
 
     components: {

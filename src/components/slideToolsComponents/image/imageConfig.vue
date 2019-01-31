@@ -11,7 +11,7 @@
     </div>
 </template>
 <script>
-import uploadImg from '../uploadImg/uploadImg';
+import uploadImg from '@/components/uploadImg/uploadImg';
 
 export default {
     props: {
