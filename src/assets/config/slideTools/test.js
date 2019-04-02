@@ -7,7 +7,7 @@ let test = {
         {
             'name': '一行一列',
             'classify': 'layout',
-            'isShow': '1',
+            'isShow': '0',
             'type': 'oneLayout',
             'layout': '1',
             'components': []
@@ -32,6 +32,7 @@ let test = {
     componentList: [
         {
             'componentName': 'image',
+            'show': 1,
             'type': 'image',
             'componentCNName': '图片',
             'categoryId': '1',
@@ -45,14 +46,29 @@ let test = {
         },
         {
             'componentName': 'text',
+            'show': 1,
             'type': 'text',
             'componentCNName': '文本',
             'categoryId': '1',
             'categoryDesc': '图文类',
             'classify': 'component',
-            'id': 1,
+            'id': 2,
             'config': {
                 'text': ''
+            }
+        },
+        {
+            'componentName': 'hotImage',
+            'show': 1,
+            'type': 'image',
+            'componentCNName': '热区',
+            'categoryId': '1',
+            'categoryDesc': '图文类',
+            'classify': 'component',
+            'id': 3,
+            'config': {
+                'imgSrc': '',
+                'hotData': []
             }
         }
     ]
