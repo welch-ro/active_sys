@@ -4,6 +4,7 @@
         <div @mousedown="drowHotArea($event)" class="hot-image-box" ref="hotImage">
             <img :src="imgSrc" class="imgauto" />
             <div class="area-box" @mousedown="drag($event, index)" v-for="(item, index) in config.hotData" :key="index" :style="{'left': item.x + 'px', 'top': item.y + 'px', 'width': item.width + 'px', 'height': item.height + 'px'}">
+                热区{{index}}
                 <span @mousedown="scaleHot($event, index)"></span>
             </div>
         </div>

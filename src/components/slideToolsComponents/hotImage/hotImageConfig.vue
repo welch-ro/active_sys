@@ -9,7 +9,7 @@
         <h3 class="config-t">配置热区链接</h3>
         <ul class="hot-config">
             <li v-for="(item, index) in config.hotData" :key="index">
-                <p><a href="javascript:;" @click="del(index)">删除</a>输入链接</p>
+                <p><a href="javascript:;" @click="del(index)">删除</a>热区{{index}}输入链接</p>
                 <input type="text" v-model="item.link">
             </li>
         </ul>
