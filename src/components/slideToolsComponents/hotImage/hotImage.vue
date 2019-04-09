@@ -1,7 +1,7 @@
 <style scoped lang="less" src='./hotImage.less'></style>
 <template>
     <section class="hot-image">
-        <div @mousedown="drowHotArea($event)" class="hot-image-box" ref="hotImage">
+        <div @mousedown="drawHotArea($event)" class="hot-image-box" ref="hotImage">
             <img :src="imgSrc" class="imgauto" />
             <div class="area-box" @mousedown="drag($event, index)" v-for="(item, index) in config.hotData" :key="index" :style="{'left': item.x + 'px', 'top': item.y + 'px', 'width': item.width + 'px', 'height': item.height + 'px'}">
                 热区{{index}}
@@ -36,6 +36,7 @@ export default {
         imgSrc () {
             return this.config.imgSrc === '' ? defaultImg : this.config.imgSrc;
         },
+        // 如果没有图片或者不是选中状态，不准编辑热区
         hotImageIsSelect () {
             return this.config.imgSrc && this.$store.state.selectComId === this.$parent.$props.componentConfig.cId;
         }
@@ -53,7 +54,7 @@ export default {
             this.imageRight = imageInfo.right;
         },
 
-        drowHotArea (ev) {
+        drawHotArea (ev) {
             this.updateImageInfo();
             if (!this.hotImageIsSelect) {
                 return;
@@ -105,42 +106,42 @@ export default {
             let disMoveY = movePageY - downPageY;
 
             switch (type) {
-            case 0:
-                // 如果当前鼠标位置已经超过图片的底部位置，那以图片底部位置来计算盒子的极限高度
-                if (movePageY >= this.imageBottom) {
-                    disMoveY = this.imageBottom - downPageY;
-                }
-                // 如果当前鼠标位置已经超过图片的右边位置，那以图片底部位置来计算盒子的极限宽度
-                if (movePageX >= this.imageRight) {
-                    disMoveX = this.imageRight - downPageX;
-                }
+                case 0:
+                    // 如果当前鼠标位置已经超过图片的底部位置，那以图片底部位置来计算盒子的极限高度
+                    if (movePageY >= this.imageBottom) {
+                        disMoveY = this.imageBottom - downPageY;
+                    }
+                    // 如果当前鼠标位置已经超过图片的右边位置，那以图片底部位置来计算盒子的极限宽度
+                    if (movePageX >= this.imageRight) {
+                        disMoveX = this.imageRight - downPageX;
+                    }
 
-                let nowWidth = this.hotWidth + disMoveX;
-                let nowHeight = this.hotHeight + disMoveY;
-                this.$set(this.config.hotData[nowHotAreaIndex], 'width', nowWidth);
-                this.$set(this.config.hotData[nowHotAreaIndex], 'height', nowHeight);
-                break;
-            case 1:
-                let nowX = this.hotLeft + disMoveX;
-                let nowY = this.hotTop + disMoveY;
+                    let nowWidth = this.hotWidth + disMoveX;
+                    let nowHeight = this.hotHeight + disMoveY;
+                    this.$set(this.config.hotData[nowHotAreaIndex], 'width', nowWidth);
+                    this.$set(this.config.hotData[nowHotAreaIndex], 'height', nowHeight);
+                    break;
+                case 1:
+                    let nowX = this.hotLeft + disMoveX;
+                    let nowY = this.hotTop + disMoveY;
 
-                if (nowX >= this.imageRight - this.imageLeft - this.config.hotData[nowHotAreaIndex].width) {
-                    nowX = this.imageRight - this.imageLeft - this.config.hotData[nowHotAreaIndex].width;
-                }
-                if (nowX <= 0) {
-                    nowX = 0;
-                }
+                    if (nowX >= this.imageRight - this.imageLeft - this.config.hotData[nowHotAreaIndex].width) {
+                        nowX = this.imageRight - this.imageLeft - this.config.hotData[nowHotAreaIndex].width;
+                    }
+                    if (nowX <= 0) {
+                        nowX = 0;
+                    }
 
-                if (nowY >= this.imageBottom - this.imageTop - this.config.hotData[nowHotAreaIndex].height) {
-                    nowY = this.imageBottom - this.imageTop - this.config.hotData[nowHotAreaIndex].height;
-                }
-                if (nowY <= 0) {
-                    nowY = 0;
-                }
+                    if (nowY >= this.imageBottom - this.imageTop - this.config.hotData[nowHotAreaIndex].height) {
+                        nowY = this.imageBottom - this.imageTop - this.config.hotData[nowHotAreaIndex].height;
+                    }
+                    if (nowY <= 0) {
+                        nowY = 0;
+                    }
 
-                this.$set(this.config.hotData[nowHotAreaIndex], 'x', nowX);
-                this.$set(this.config.hotData[nowHotAreaIndex], 'y', nowY);
-                break;
+                    this.$set(this.config.hotData[nowHotAreaIndex], 'x', nowX);
+                    this.$set(this.config.hotData[nowHotAreaIndex], 'y', nowY);
+                    break;
             };
         },
 
@@ -159,8 +160,8 @@ export default {
             this.hotTop = this.config.hotData[index].y;
             // 点击的时候，当前鼠标所在的位置
             let {pageX: downPageX, pageY: downPageY} = oEvent;
-            // 更新当前所画热区位置
 
+            // 更新当前所画热区位置
             this.changeFn(downPageX, downPageY, hotIndex, 1);
         },
 
@@ -179,6 +180,7 @@ export default {
             this.hotHeight = this.config.hotData[index].height;
             // 点击的时候，当前鼠标所在的位置
             let {pageX: downPageX, pageY: downPageY} = oEvent;
+
             // 实时更新当前所画热区的宽高
             this.changeFn(downPageX, downPageY, hotIndex, 0);
         }

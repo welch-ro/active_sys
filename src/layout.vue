@@ -2,7 +2,7 @@
 <template>
     <article>
         <vue-header></vue-header>
-        <div>
+        <div class="main-wrap">
             <router-view></router-view>
         </div>
     </article>
@@ -14,5 +14,9 @@ export default {
         vueHeader
     }
 };
-
 </script>
+<style lang="less">
+    .main-wrap{
+        margin-top: 20px;
+    }
+</style>

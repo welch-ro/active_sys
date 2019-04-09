@@ -4,14 +4,16 @@
         <div class="layout-module" v-for="i in colNum" :key="layoutItem.layoutId + '_' + i">
             <drag-gable v-model="list[i-1]" :options="{group:{name:'showLayout', put:controlLength(list[i-1]), pull:false}}" @add="addData">
                 <div class="component-show" v-if="list[i-1].length > 0">
-                    <show-component :componentName="list[i-1][0].componentName" :componentConfig="list[i-1][0]" @showConfig="showConfig" :key="layoutItem.layoutId" @delComponent="delComponent"></show-component>
+                    <show-component :componentName="list[i-1][0].componentName" :componentConfig="list[i-1][0]" @showConfig="showConfig" :key="layoutItem.layoutId" @delComponent="delComponent">
+                    </show-component>
                 </div>
                 <div class="component-empty-tips" v-else>
                     请拖组件进来
                 </div>
             </drag-gable>
         </div>
-        <slot name="del"></slot>
+        <slot name="del-layout">
+        </slot>
     </div>
 </template>
 <script>
@@ -46,6 +48,11 @@ export default {
         this.updateList(this.layoutItem);
     },
 
+    computed: {
+        getNowComponentType () {
+            return this.$store.state.componentType;
+        }
+    },
     methods: {
         // 将数据添加到对应的layout components里
         addData () {
@@ -58,9 +65,14 @@ export default {
             }
         },
 
-        // 控制每个布局里只能有一个组件
+        // 控制每个布局里只能有一个组件，并且控制类型的输入，部分布局只能用指定的组件，这个控制在组件布局基础数据那里设置
         controlLength (item) {
-            return item.length > 0 ? 'false' : ['component'];
+            if (item.length > 0) {
+                return 'false';
+            } else {
+                console.log('插入失败');
+                return !this.layoutItem.componentControl.includes(this.getNowComponentType) ? 'false' : ['component'];
+            }
         },
 
         showConfig (configObj) {

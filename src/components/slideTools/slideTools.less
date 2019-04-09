@@ -133,13 +133,18 @@
   background-repeat: no-repeat;
 }
 
-.layout-ico(@bg_position: 0px 0px){
+.l-item-ico{
   .ico_img('../../assets/img/active/page-edit-layout.png', 90px auto, 90px, 62px);
+}
+.c-item-ico{
+  .ico_img('../../assets/img/active/page-editicon.png', 50px auto, 50px, 50px);
+}
+
+.layout-ico(@bg_position: 0px 0px){  
   background-position: @bg_position;
 }
 
-.component-ico(@bg_position: 0px 0px){
-  .ico_img('../../assets/img/active/page-editicon.png', 50px auto, 50px, 50px);
+.component-ico(@bg_position: 0px 0px){  
   background-position: @bg_position;
 }
 
@@ -152,13 +157,21 @@
 .layout-item-ico2{
   .layout-ico(0 -123px);
 }
-
+/*
 .component-item-ico0{
   .component-ico(0 0)
 }
 .component-item-ico1{
   .component-ico(0 -50px)
 }
+*/
+.generate-component-item-ico(3);
 
+.generate-component-item-ico(@n, @i: 0) when (@i =< @n) {
+  .component-item-ico@{i} {
+    .component-ico(0 @i * -50px);
+  }
+  .generate-component-item-ico(@n, (@i + 1));
+}
 
 

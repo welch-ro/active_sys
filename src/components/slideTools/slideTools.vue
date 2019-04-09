@@ -6,10 +6,10 @@
         <dd>
             <ul class="tools-layout" :class="{'content-open': openIndexList.includes('bj')}">
                 <drag-gable v-model="layoutList" :options="{group:{name:'layout', pull:'clone', put:false}, sort:false}" :clone="onCloneLayout">
-                    <li class="item" v-for="(item, index) in layoutList" :key="index" v-if="item.isShow == 1">
+                    <li class="item" v-for="(item, index) in layoutList" :key="index">
                         <div class="item-cont">
                             <div>
-                                <i :class="'layout-item-ico' + index"></i>
+                                <i class="l-item-ico" :class="'layout-item-ico' + index"></i>
                                 <p>{{item.name}}</p>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                         <li class="item component-hover-layout-hidden" v-for="(item, index) in item.category_item_list" :key="index">
                             <div class="item-cont">
                                 <div>
-                                    <i :class="'component-item-ico' + item.id"></i>
+                                    <i class="c-item-ico" :class="'component-item-ico' + item.id"></i>
                                     <p>{{item.componentCNName}}</p>
                                 </div>
                             </div>
@@ -116,6 +116,7 @@ export default {
         // 组件数据
         onCloneComponent (original) {
             this.$set(original, 'cId', 'cId_' + new Date().getTime());
+            this.$store.commit('changeComponentType', original.type);
             return JSON.parse(JSON.stringify(original));
         },
 
