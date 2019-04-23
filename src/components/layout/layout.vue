@@ -70,7 +70,6 @@ export default {
             if (item.length > 0) {
                 return 'false';
             } else {
-                console.log('插入失败');
                 return !this.layoutItem.componentControl.includes(this.getNowComponentType) ? 'false' : ['component'];
             }
         },

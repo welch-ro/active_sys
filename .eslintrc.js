@@ -26,7 +26,7 @@ module.exports = {
         // allow debugger during development
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 
-        "indent": ['error', 4],  //缩进风格,tab缩进，4个空格
+        "indent": ['error', 4, { "SwitchCase": 1 }],  //缩进风格,tab缩进，4个空格
 
         // 行末强制分号
         'semi': ['error', 'always']
